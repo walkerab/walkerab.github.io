@@ -3815,14 +3815,6 @@ a:active {
   transition: background-color 1s;
   opacity: 1.0;
 }
-.page__header:hover,
-.page__footer:hover {
-  background-color: #fffcf6;
-}
-.page__header:hover .fx--letter-flip__letter:before,
-.page__footer:hover .fx--letter-flip__letter:before {
-  color: #fffcf6;
-}
 .logo__text {
   font-family: 'Audiowide';
   font-size: 3em;
@@ -3861,7 +3853,7 @@ a:active {
 }
 .primary-nav__item-link,
 .logo__sub-title {
-  text-shadow: 0 0 1px #000;
+  text-shadow: 0 0 2px #000;
 }
 .center-piece {
   background-color: #fffcf6;
