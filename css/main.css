@@ -3788,7 +3788,7 @@
 }
 .content .highlight {
   padding: 27px;
-  outline: 1px dashed #cccccc;
+  outline: 1px dashed #f1f1f1;
   overflow-x: auto;
 }
 body {
@@ -3797,12 +3797,11 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-image: url(../images/shadowbox.svg);
   background-attachment: fixed;
-  color: #5d4b4b;
+  color: #783a3a;
 }
 a:active {
   position: relative;
   top: 1px;
-  left: 1px;
 }
 .page__sub-title {
   font-size: 0.6em;
@@ -3811,7 +3810,7 @@ a:active {
 .page__footer {
   padding: 27px;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #cccccc;
+  color: #f1f1f1;
   min-height: 54px;
   transition: background-color 1s;
   opacity: 1.0;
@@ -3826,7 +3825,7 @@ a:active {
   }
 }
 .logo__text-link {
-  color: #cccccc;
+  color: #f1f1f1;
   text-decoration: none;
 }
 .logo__sub-title {
@@ -3841,13 +3840,10 @@ a:active {
   padding: 27px;
 }
 .primary-nav__item-link {
-  color: #cccccc;
+  color: #f1f1f1;
   text-decoration: none;
   font-size: 27px;
   display: inline-block;
-}
-.primary-nav__item-link:hover {
-  color: #369142;
 }
 .primary-nav__item-link:hover:after {
   content: '';
@@ -3856,7 +3852,7 @@ a:active {
   margin-bottom: -2px;
 }
 .center-piece {
-  background-color: rgba(250, 250, 250, 0.8);
+  background-color: #fffcf6;
   padding: 27px;
 }
 @media (max-width: 360px) {
@@ -3870,6 +3866,9 @@ a:active {
   z-index: -1;
 }
 .post-preview__title {
+  color: #286c31;
+}
+.post-preview__date {
   color: #ffa500;
 }
 @media (min-width: 360px) {
@@ -3877,9 +3876,9 @@ a:active {
     opacity: 0.6;
   }
   .fx--inner-shadow {
-    -moz-box-shadow: inset 0 0 5px #5d4b4b;
-    -webkit-box-shadow: inset 0 0 5px #5d4b4b;
-    box-shadow: inset 0 0 5px #5d4b4b;
+    -moz-box-shadow: inset 0 0 5px #783a3a;
+    -webkit-box-shadow: inset 0 0 5px #783a3a;
+    box-shadow: inset 0 0 5px #783a3a;
   }
 }
 .fx--letter-flip__letter {

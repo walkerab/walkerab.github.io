@@ -1,6 +1,6 @@
 // var start_color = new less.tree.Color([255,209,0],0.1);
 // var start_color = start_color || [255,165,0,0.5];
-var start_color = start_color || [22,33,44,0.5];
+var start_color = start_color || [90,110,180,0.5];
 start_color = new less.tree.Color([start_color[0],start_color[1],start_color[2]],start_color[3]);
 var color_offset = color_offset || 130;
 
@@ -24,7 +24,7 @@ $(function(){
 			sum += height;
 		}
 		heights[0] += container_padding/2;
-		heights.push(container_outer_height - sum);
+		heights.push(container_outer_height - sum - container_padding/2);
 
 		var html = [];
 		heights.forEach(function(height,i){
@@ -32,7 +32,7 @@ $(function(){
 				'<div class="background-strip" style="height:',
 				height,
 				'px;background-color:',
-				less.tree.functions.spin(start_color, {value:i*color_offset}).toCSS(),
+				i % 2 !== 0 ? less.tree.functions.spin(start_color, {value:i*color_offset}).toCSS() : '',
 				'"></div>'
 			);
 		});
