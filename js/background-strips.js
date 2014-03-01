@@ -23,8 +23,8 @@ $(function(){
 			heights.push(height);
 			sum += height;
 		}
-		heights[0] += container_padding/2;
-		heights.push(container_outer_height - sum - container_padding/2);
+		// heights[0] += container_padding/2;
+		heights.push(container_outer_height - sum);
 
 		var html = [];
 		heights.forEach(function(height,i){
