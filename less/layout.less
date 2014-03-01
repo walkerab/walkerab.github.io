@@ -1,0 +1,140 @@
+
+.container {
+	margin: auto;
+	// outline: 1px solid red;
+
+	width: auto;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.clearfix {
+  display: block;
+  zoom: 1;
+
+  &:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.row {
+	.clearfix;
+}
+
+.col {
+	float: left;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	padding: @gutter-size;
+	&.no-gutter {
+		padding: 0;
+	}
+	position: relative;
+}
+
+.make-columns (@size) when (@size > 0) {
+	.make-columns(@size - 1);
+	@media (min-width: (@size * @col-width)) {
+		.make-columns-for-size(@size);
+		.make-ratio-col(1;2;@size);
+		.make-ratio-col(1;3;@size);
+		.make-ratio-col(2;3;@size);
+		.make-ratio-col(1;4;@size);
+		.make-ratio-col(3;4;@size);
+		.make-ratio-col(1;5;@size);
+		.make-ratio-col(2;5;@size);
+		.make-ratio-col(3;5;@size);
+		.make-ratio-col(4;5;@size);
+		.make-ratio-col(1;6;@size);
+		.make-ratio-col(5;6;@size);
+		.make-ratio-col(1;7;@size);
+		.make-ratio-col(2;7;@size);
+		.make-ratio-col(3;7;@size);
+		.make-ratio-col(4;7;@size);
+		.make-ratio-col(5;7;@size);
+		.make-ratio-col(6;7;@size);
+	}
+	.extend-columns-for-size(@size);
+	.extend-ratio-col(1;2;@size);
+	.extend-ratio-col(1;3;@size);
+	.extend-ratio-col(2;3;@size);
+	.extend-ratio-col(1;4;@size);
+	.extend-ratio-col(3;4;@size);
+	.extend-ratio-col(1;5;@size);
+	.extend-ratio-col(2;5;@size);
+	.extend-ratio-col(3;5;@size);
+	.extend-ratio-col(4;5;@size);
+	.extend-ratio-col(1;6;@size);
+	.extend-ratio-col(5;6;@size);
+	.extend-ratio-col(1;7;@size);
+	.extend-ratio-col(2;7;@size);
+	.extend-ratio-col(3;7;@size);
+	.extend-ratio-col(4;7;@size);
+	.extend-ratio-col(5;7;@size);
+	.extend-ratio-col(6;7;@size);
+}
+
+.make-container (@size) {
+	@media (min-width: (@size * @col-width)) {
+		.container {
+			width: (@size * @col-width);
+		}
+	}
+}
+
+.make-columns-for-size (@size; @count:@size) when (@count > 0) {
+	.make-columns-for-size(@size; @count - 1);
+	.col-@{count}-@{size} {
+		width: (@count * @col-width);
+	}
+	.col-push-@{count}-@{size} {
+		left: (@count * @col-width);
+	}
+	.col-pull-@{count}-@{size} {
+		left: (-@count * @col-width);
+	}
+	.col-offset-@{count}-@{size} {
+		margin-left: (@count * @col-width);
+	}
+}
+
+.extend-columns-for-size (@size; @count:@size) when (@count > 0) {
+	.extend-columns-for-size(@size; @count - 1);
+	.col-@{count}-@{size} {
+		&:extend(.col);
+	}
+}
+
+.make-ratio-col (@numerator; @denominator; @size) {
+	.col-@{numerator}-@{denominator}-@{size} {
+		width: (100% * @numerator / @denominator);
+	}
+	.col-push-@{numerator}-@{denominator}-@{size} {
+		left: (100% * @numerator / @denominator);
+	}
+	.col-pull-@{numerator}-@{denominator}-@{size} {
+		left: (-100% * @numerator / @denominator);
+	}
+	.col-offset-@{numerator}-@{denominator}-@{size} {
+		margin-left: (100% * @numerator / @denominator);
+	}
+}
+
+.extend-ratio-col (@numerator; @denominator; @size) {
+	.col-@{numerator}-@{denominator}-@{size} {
+		&:extend(.col);
+	}
+}
+
+.make-columns(12);
+.make-container(4);
+.make-container(5);
+.make-container(6);
+.make-container(8);
+.make-container(12);

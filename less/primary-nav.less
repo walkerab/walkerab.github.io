@@ -1,0 +1,27 @@
+.primary-nav {
+	float: right;
+	list-style: none;
+}
+
+.primary-nav__item {
+	float: left;
+	padding: @gutter-size;
+}
+
+.primary-nav__item-link {
+	color: @color-2;
+	text-decoration: none;
+	font-size: (@base-line-height * @base-font-size);
+	display: inline-block;
+}
+
+	.primary-nav__item-link:hover {
+		color: #fff;
+	}
+
+	.primary-nav__item-link:hover:after {
+		content: '';
+		display: block;
+		border-top: 2px solid orange;
+		margin-bottom: -2px;
+	}

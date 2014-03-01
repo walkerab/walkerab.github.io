@@ -13,29 +13,61 @@
 		<link rel="stylesheet" href="/css/main.css">
 	</head>
 	<body>
-		<div class="site">
-			<div class="header">
-				<h1 class="title"><a href="/">{{ site.name }}</a></h1>
-				<a class="extra" href="/">home</a>
-			</div>
-
-			{{ content }}
-
-			<div class="footer">
-				<div class="contact">
-					<p>
-						Your Name<br />
-						What You Are<br />
-						you@example.com
-					</p>
-				</div>
-				<div class="contact">
-					<p>
-						<a href="https://github.com/walkerab">github.com/walkerab</a><br />
-						<!-- <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br /> -->
-					</p>
+		<div class="page__header">
+			<ul class="primary-nav">
+				<li class="primary-nav__item">
+					<a class="primary-nav__item-link" href="{{ site.url }}/">
+						Blog
+					</a>
+				</li>
+				<li class="primary-nav__item">
+					<a class="primary-nav__item-link" href="{{ site.url }}/about">
+						About
+					</a>
+				</li>
+			</ul>
+			<div class="logo">
+				<span class="logo__text">
+					<a class="logo__text-link fx--letter-flip" href="{{ site.url }}/">{{ site.name }}</a>
+				</span>
+				<div class="logo__sub-title">
+					Rants&nbsp;&amp;&nbsp;Musings
 				</div>
 			</div>
 		</div>
+		<div class="background-strips"></div>
+		<div class="container">
+			<div class="center-piece fx--inner-shadow">
+				<h1 class="page__title">
+					{{ page.title }}
+				</h1>
+				<p class="page__sub-title">
+					{{ page.subtitle }}
+				</p>
+				<div class="content">
+					{{ content }}
+				</div>
+			</div>
+		</div>
+		<div class="page__footer"></div>
+		<script type="text/javascript" src="{{ site.url }}/bower_components/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="{{site.url}}/bower_components/less.js/dist/less-1.6.2.min.js"></script>
+		<script type="text/javascript">
+			{% if page.start_color %}
+				var start_color = [{{ page.start_color }}];
+			{% endif %}
+			{% if page.color_offset %}
+				var color_offset = {{ page.color_offset }};
+			{% endif %}
+		</script>
+		<script type="text/javascript" src="{{ site.url }}/js/background-strips.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(window).one('scroll',function(){
+					$('.page__header,.page__footer').addClass('fx--fade-out');
+				});
+			});
+		</script>
+		<script type="text/javascript" src="{{ site.url }}/js/fx--letter-flip.js"></script>
 	</body>
 </html>

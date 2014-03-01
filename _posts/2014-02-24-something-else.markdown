@@ -5,12 +5,8 @@ date:   2014-02-24 17:25:35
 categories: jekyll update
 ---
 
-<img class="alignright" src="http://lorempixel.com/320/240/" width="320" height="240">
-
-You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
+You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!<!--more-->
 To add new posts, simply add a file in the `_posts` directory that follows the convention: YYYY-MM-DD-name-of-post.ext.
-
-<!--more-->
 
 Jekyll also offers powerful support for code snippets:
 

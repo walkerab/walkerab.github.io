@@ -1,0 +1,35 @@
+.content {
+	p,h1,h2,h3,h4,h5,h6,.highlight {
+		margin: @computed-line-height 0;
+	}
+
+	blockquote {
+
+	}
+
+	ul {
+		display: table;
+		margin: auto;
+		max-width: 80%;
+	}
+
+	.alignright {
+		float: right;
+		margin-left: (@gutter-size / 2);
+	}
+
+	.alignleft {
+		float: left;
+		margin-right: (@gutter-size / 2);
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	.highlight {
+		padding: @gutter-size;
+		outline: 1px dashed @color-2;
+		overflow-x: auto;
+	}
+}

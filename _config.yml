@@ -1,3 +1,4 @@
-name: Your New Jekyll Site
+name: Mumblings of a Powerful Wizard
 markdown: redcarpet
 pygments: true
+excerpt_separator: <!--more-->
