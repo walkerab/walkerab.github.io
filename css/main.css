@@ -3813,7 +3813,7 @@ a:active {
   background-color: #286c31;
   color: #cccccc;
   min-height: 54px;
-  transition: all 1s;
+  transition: opacity 1s;
   opacity: 1.0;
 }
 .page__header:hover,
