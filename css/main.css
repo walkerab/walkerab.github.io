@@ -3845,10 +3845,17 @@ a:active {
   font-size: 27px;
   display: inline-block;
 }
+.primary-nav__item-link:after {
+  content: '';
+  display: block;
+  border-top: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.5s;
+}
 .primary-nav__item-link:hover:after {
   content: '';
   display: block;
-  border-top: 2px solid #286c31;
+  border-top: 2px solid #fffcf6;
   margin-bottom: -2px;
 }
 .primary-nav__item-link,

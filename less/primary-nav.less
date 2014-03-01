@@ -22,10 +22,18 @@
 		// color: @main-font-color;
 	}
 
+	.primary-nav__item-link:after {
+		content: '';
+		display: block;
+		border-top: 2px solid transparent;
+		margin-bottom: -2px;
+		transition: all 0.5s;
+	}
+
 	.primary-nav__item-link:hover:after {
 		content: '';
 		display: block;
-		border-top: 2px solid @color-1;
+		border-top: 2px solid @color-4;
 		margin-bottom: -2px;
 	}
 
