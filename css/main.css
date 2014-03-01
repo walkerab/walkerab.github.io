@@ -3770,6 +3770,15 @@
 .content .highlight {
   margin: 27px 0;
 }
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  font-variant: small-caps;
+  color: #909090;
+}
 .content ul {
   display: table;
   margin: auto;
@@ -3785,6 +3794,10 @@
 }
 .content img {
   max-width: 100%;
+}
+.content a {
+  color: #ccff3b;
+  text-shadow: 0 0 2px #000;
 }
 .content .highlight {
   padding: 27px;
@@ -3802,6 +3815,12 @@ body {
 a:active {
   position: relative;
   top: 1px;
+}
+.page__title {
+  color: #909090;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  font-size: 4em;
 }
 .page__sub-title {
   font-size: 0.6em;
@@ -3825,7 +3844,6 @@ a:active {
   }
 }
 .logo__text-link {
-  color: #ccff3b;
   text-decoration: none;
 }
 .logo__sub-title {
@@ -3876,11 +3894,18 @@ a:active {
   width: 100%;
   z-index: -1;
 }
+.post-preview {
+  clear: both;
+}
 .post-preview__title {
-  color: #286c31;
+  font-size: 2em;
+  text-decoration: none;
+}
+.post-preview__title:hover {
+  text-decoration: underline;
 }
 .post-preview__date {
-  color: #ffa500;
+  color: #286c31;
 }
 @media (min-width: 360px) {
   .fx--fade-out {
@@ -3895,7 +3920,7 @@ a:active {
 .fx--letter-flip__letter {
   display: inline-block;
   position: relative;
-  color: #783a3a;
+  color: #ccff3b;
   -webkit-transform-style: preserve-3d;
   -webkit-perspective: 400;
   z-index: 1;
