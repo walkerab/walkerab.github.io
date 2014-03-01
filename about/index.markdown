@@ -27,7 +27,7 @@ I created this site in an attempt to share my knowledge, experience, and finding
 
 My main drive is to take complexity out of software. I love the feeling of taking an advanced API and simplifying down to the bare essentials. I live for the challenge of taking something complex and making it simple.
 
-Software by it's very nature is complex, but it doesn't always have to be. Too often we try to improve our software by tacking more features on when really should be doing the opposite. By striving for simplicity we can create software that is modular, meaningful, and accessible.
+Software by it's very nature is complex, but there are ways to mitigate this complexity. Too often we try to improve our software by tacking more features on when really should be doing the opposite. By striving for simplicity we can create software that is modular, meaningful, and accessible.
 
 ##Other Stuff
 

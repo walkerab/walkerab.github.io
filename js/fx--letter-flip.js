@@ -1,5 +1,11 @@
 $(function(){
-	$('.fx--letter-flip').each(function(){
+	$('.fx--letter-flip')
+	.hover(function(){
+		$(this).addClass('animate');
+	},function(){
+		$(this).removeClass('animate');
+	})
+	.each(function(){
 		var that = this;
 		var characters = $(that).html().split('');
 		var html = ['<span class="word">'];

@@ -22,6 +22,7 @@ $(function(){
 			heights.push(height);
 			sum += height;
 		}
+		heights[0] += container_padding/2;
 		heights.push(container_outer_height - sum);
 
 		var html = [];
