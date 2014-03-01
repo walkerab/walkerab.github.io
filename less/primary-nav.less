@@ -13,6 +13,7 @@
 	text-decoration: none;
 	font-size: (@base-line-height * @base-font-size);
 	display: inline-block;
+
 }
 
 	.primary-nav__item-link:hover {
@@ -24,6 +25,11 @@
 	.primary-nav__item-link:hover:after {
 		content: '';
 		display: block;
-		border-top: 2px solid @color-3;
+		border-top: 2px solid @color-1;
 		margin-bottom: -2px;
 	}
+
+.primary-nav__item-link,
+.logo__sub-title {
+	text-shadow: 0 0 1px #000;	
+}

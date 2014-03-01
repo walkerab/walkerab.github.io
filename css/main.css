@@ -3788,7 +3788,7 @@
 }
 .content .highlight {
   padding: 27px;
-  outline: 1px dashed #f1f1f1;
+  outline: 1px dashed #ccff3b;
   overflow-x: auto;
 }
 body {
@@ -3810,10 +3810,18 @@ a:active {
 .page__footer {
   padding: 27px;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
+  color: #ccff3b;
   min-height: 54px;
   transition: background-color 1s;
   opacity: 1.0;
+}
+.page__header:hover,
+.page__footer:hover {
+  background-color: #fffcf6;
+}
+.page__header:hover .fx--letter-flip__letter:before,
+.page__footer:hover .fx--letter-flip__letter:before {
+  color: #fffcf6;
 }
 .logo__text {
   font-family: 'Audiowide';
@@ -3825,7 +3833,7 @@ a:active {
   }
 }
 .logo__text-link {
-  color: #f1f1f1;
+  color: #ccff3b;
   text-decoration: none;
 }
 .logo__sub-title {
@@ -3840,7 +3848,7 @@ a:active {
   padding: 27px;
 }
 .primary-nav__item-link {
-  color: #f1f1f1;
+  color: #ccff3b;
   text-decoration: none;
   font-size: 27px;
   display: inline-block;
@@ -3848,8 +3856,12 @@ a:active {
 .primary-nav__item-link:hover:after {
   content: '';
   display: block;
-  border-top: 2px solid #ffa500;
+  border-top: 2px solid #286c31;
   margin-bottom: -2px;
+}
+.primary-nav__item-link,
+.logo__sub-title {
+  text-shadow: 0 0 1px #000;
 }
 .center-piece {
   background-color: #fffcf6;
@@ -3884,7 +3896,7 @@ a:active {
 .fx--letter-flip__letter {
   display: inline-block;
   position: relative;
-  color: orange;
+  color: #783a3a;
   -webkit-transform-style: preserve-3d;
   -webkit-perspective: 400;
   z-index: 1;
