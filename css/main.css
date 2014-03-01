@@ -3855,6 +3855,11 @@ a:active {
   text-transform: uppercase;
   font-size: 4em;
 }
+@media (max-width: 432px) {
+  .page__title {
+    font-size: 3em;
+  }
+}
 .page__sub-title {
   font-size: 0.6em;
 }
@@ -3871,7 +3876,7 @@ a:active {
   font-family: 'Audiowide';
   font-size: 3em;
 }
-@media (max-width: 360px) {
+@media (max-width: 432px) {
   .logo__text {
     font-size: 2em;
   }
@@ -3917,7 +3922,7 @@ a:active {
   background-color: #fffcf6;
   padding: 27px;
 }
-@media (max-width: 360px) {
+@media (max-width: 432px) {
   .center-piece {
     padding: 13.5px;
   }
@@ -3927,7 +3932,7 @@ a:active {
   width: 100%;
   z-index: -1;
 }
-@media (min-width: 360px) {
+@media (min-width: 432px) {
   .fx--fade-out {
     opacity: 0.6;
   }
@@ -3953,7 +3958,7 @@ a:active {
   top: 0;
   left: 0;
 }
-@media (min-width: 360px) {
+@media (min-width: 432px) {
   .fx--letter-flip__letter,
   .fx--letter-flip__letter:before,
   .fx--letter-flip__letter:after {
