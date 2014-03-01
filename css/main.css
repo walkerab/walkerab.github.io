@@ -3810,25 +3810,11 @@ a:active {
 .page__header,
 .page__footer {
   padding: 27px;
-  background-color: #286c31;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
   color: #cccccc;
   min-height: 54px;
   transition: background-color 1s;
   opacity: 1.0;
-}
-.page__header:hover,
-.page__footer:hover {
-  background-color: rgba(40, 108, 49, 0.8);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.page__header:hover .fx--letter-flip__letter:before,
-.page__footer:hover .fx--letter-flip__letter:before {
-  color: #fff;
-}
-.page__header:hover .animate .fx--letter-flip__letter:before,
-.page__footer:hover .animate .fx--letter-flip__letter:before {
-  color: #4d004d;
 }
 .logo__text {
   font-family: 'Audiowide';
@@ -3861,7 +3847,7 @@ a:active {
   display: inline-block;
 }
 .primary-nav__item-link:hover {
-  color: #ffdb99;
+  color: #369142;
 }
 .primary-nav__item-link:hover:after {
   content: '';
@@ -3919,8 +3905,7 @@ a:active {
     transition: all 0.3s ease-in-out;
   }
   .fx--letter-flip__letter:before {
-    color: #fff;
-    color: #286c31;
+    color: #FAFAFA;
     text-shadow: -1px 0px 1px rgba(255, 255, 255, 0.8), 1px 0px 1px rgba(0, 0, 0, 0.8);
     z-index: 3;
     -webkit-transform: rotateX(0deg) rotateY(-15deg) rotateZ(0deg);
@@ -3931,7 +3916,7 @@ a:active {
     -webkit-transform: scale(1.08, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 1deg);
   }
   .animate .fx--letter-flip__letter:before {
-    color: #fafafa;
+    color: #FFFFFF;
     -webkit-transform: rotateX(0deg) rotateY(-40deg) rotateZ(0deg);
   }
   .animate .fx--letter-flip__letter:after {

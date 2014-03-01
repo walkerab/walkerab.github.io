@@ -1,6 +1,6 @@
 // var start_color = new less.tree.Color([255,209,0],0.1);
-var start_color = start_color || [255,165,0,0.5];
-// var start_color = start_color || [165,165,165,0.5];
+// var start_color = start_color || [255,165,0,0.5];
+var start_color = start_color || [22,33,44,0.5];
 start_color = new less.tree.Color([start_color[0],start_color[1],start_color[2]],start_color[3]);
 var color_offset = color_offset || 130;
 

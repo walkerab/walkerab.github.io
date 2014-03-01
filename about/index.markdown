@@ -2,7 +2,7 @@
 layout: default
 title: About Me
 subtitle: While I'm not <em>exactly</em> a wizard, many have labelled me so.
-start_color: 22,89,200,0.2
+start_color: 22,40,20,0.5
 color_offset: 140
 ---
 

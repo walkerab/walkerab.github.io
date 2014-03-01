@@ -5,8 +5,7 @@
 .page__header,
 .page__footer {
 	padding: @gutter-size;
-	background-color: @color-1;
-	background-color: #fff;
+	background-color: rgba(0,0,0,0.5);
 	color: @color-2;
 	min-height: (2 * @computed-line-height);
 
@@ -14,16 +13,16 @@
 
 	opacity: 1.0;
 
-	&:hover {
-		background-color: fadeout(@color-1, 20%);
-		background-color: rgba(0,0,0,0.5);
+	// &:hover {
+	// 	background-color: fadeout(@color-1, 20%);
+	// 	background-color: rgba(0,0,0,0.5);
 
-		.fx--letter-flip__letter:before {
-			color: #fff;
-		}
+	// 	.fx--letter-flip__letter:before {
+	// 		color: #fff;
+	// 	}
 
-		.animate .fx--letter-flip__letter:before {
-			color: darken(rgb(128, 0, 128), 10%); //purple
-		}
-	}
+	// 	.animate .fx--letter-flip__letter:before {
+	// 		color: darken(rgb(128, 0, 128), 10%); //purple
+	// 	}
+	// }
 }
