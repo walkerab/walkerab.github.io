@@ -1,0 +1,144 @@
+.title-strip {
+	margin: 0 (-(@gutter-size));
+	padding: 0 (@gutter-size);
+	background-color: #909090;
+	color: @color-2;
+	font-variant: small-caps;
+}
+
+.post,
+.post-preview__excerpt {
+	p,h1,h2,h3,h4,h5,h6,.highlight,ul,ol {
+		margin: @computed-line-height 0;
+	}
+
+	h1,h2,h3,h4,h5,h6 {
+		.title-strip;
+		.fx--glowing-letters;
+	}
+
+	blockquote {
+		.fx--inner-shadow;
+		border-radius: 2px;
+		background-color: lighten(@color-4, 3%);
+		padding: @gutter-size;
+		padding-left: (@gutter-size * 2);
+
+		display: table;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 80%;
+
+		position: relative;
+
+		cite {
+			float: right;
+
+			&:before {
+				content: '-';
+			}
+		}
+
+		p {
+			// so stays on the same line as open-quote
+			margin: 0;
+		}
+
+		&:before {
+			font-size: 5em;
+			line-height: 1em;
+			height: 100%;
+			content: "\201C";
+			display: block;
+
+
+			position: absolute;
+			top: 0;
+			left: 10px;
+		}		
+	}
+
+
+	ul,ol {
+		display: table;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 80%;
+	}
+
+	.alignright {
+		float: right;
+		margin-left: (@gutter-size / 2);
+	}
+
+	.alignleft {
+		float: left;
+		margin-right: (@gutter-size / 2);
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	a {
+		// .fx--glowing-letters;
+		color: @color-5;
+
+		// text-shadow: 0 0 2px #CCC;
+		text-decoration: none;
+		font-weight: bold;
+		// necessary for transforms
+		display: inline-block;
+		&:hover {
+			.transform(scale(1.025));
+		}
+	}
+
+	.highlight {
+		padding: @gutter-size;
+		overflow-x: auto;
+		.fx--inner-shadow;
+	}
+
+
+	code:not(.highlight code) {
+		display: inline-block;
+		background-color: rgba(0,0,0,0.1);
+		padding: 0 0.3em;
+		border-radius: 0.3em;
+		color: @color-6;
+	}
+}
+
+.post-preview {
+	clear: both;
+}
+	.post-preview__header {
+		.title-strip;
+	}
+
+	.post-preview__title {
+		font-size: 2em;
+		display: inline;
+	}
+
+	.post-preview__title-link {
+		.fx--glowing-letters;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.post-preview__date {
+		color: @main-font-color;
+	}
+
+	.post-preview__excerpt {
+		&:extend(.post);
+	}
+
+	.post-preview__excerpt {
+		// see .post
+	}

@@ -1,12 +1,30 @@
-@media (min-width: (@screen-size-small)) {
-	.fx--fade-out {
-		opacity: 0.6;
-	}
+.fx--inner-shadow {
+   -moz-box-shadow:    inset 0 0 5px @main-font-color;
+   -webkit-box-shadow: inset 0 0 5px @main-font-color;
+   box-shadow:         inset 0 0 5px @main-font-color;
+}
 
-	.fx--inner-shadow {
-	   -moz-box-shadow:    inset 0 0 5px @main-font-color;
-	   -webkit-box-shadow: inset 0 0 5px @main-font-color;
-	   box-shadow:         inset 0 0 5px @main-font-color;
+.fx--inset-text(@color: #000) {
+	text-shadow:
+		-1px -1px 0 @color,
+		-1px 0 0 @color,
+		0 -1px 0 @color
+	;
+}
+
+.fx--glowing-letters {
+	color: @color-2;
+	text-shadow: 0 0 2px #000;
+}
+
+.fx--justify-all-lines {
+	text-align: justify;
+	text-align-last: justify;
+
+	&:after {
+		content: '';
+		display: inline-block;
+		width: 100%;
 	}
 }
 

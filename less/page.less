@@ -3,6 +3,8 @@
 	font-variant: small-caps;
 	text-transform: uppercase;
 	font-size: 4em;
+	text-align: center;
+	.fx--inset-text(#666);
 	@media (max-width: @screen-size-small) {
 		font-size: 3em;
 	}
@@ -18,16 +20,4 @@
 	background-color: rgba(0,0,0,0.5);
 	color: @color-2;
 	min-height: (2 * @computed-line-height);
-
-	transition: background-color 1s;
-
-	opacity: 1.0;
-
-	// &:hover {
-	// 	background-color: @color-4;
-
-	// 	.fx--letter-flip__letter:before {
-	// 		color: @color-4;
-	// 	}
-	// }
 }

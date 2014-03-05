@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 @base-font-size: 18px;
-@base-line-height: 1.5;
+@base-line-height: 1.7;
 @computed-line-height: (@base-font-size * @base-line-height);
 
 @gutter-size: @computed-line-height;
@@ -14,17 +14,29 @@
 @color-2: #CCFF3B; // neon green
 @color-3: rgb(255,165,0); //orange
 @color-4: rgb(255, 252, 246);
+@color-5: rgb(255, 0, 210);
+@color-6: rgb(85, 26, 139); // dark-purple from -webkit-link
 
-@main-font-color: rgb(93, 75, 75);
 @main-font-color: #783A3A;
+@main-font-color: #522828;
 
 * {
 	margin: 0;
 	padding: 0;
 }
 
-@import "layout.less";
-@import "content.less";
+@import "prefix.less";
+// @import "layout.less";
+@import "post.less";
+
+.container {
+	box-sizing: border-box;
+	max-width: 100%;
+	margin: auto;
+	@media (min-width: (12 * @col-width)) {
+		width: (12 * @col-width);
+	}
+}
 
 body {
 	font-size: @base-font-size;

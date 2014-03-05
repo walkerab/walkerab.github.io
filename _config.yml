@@ -2,3 +2,4 @@ name: Powerful Wizard
 markdown: redcarpet
 pygments: true
 excerpt_separator: <!--more-->
+permalink: /:title

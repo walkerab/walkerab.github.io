@@ -1,20 +1,21 @@
 ---
 layout: default
-title: Powerful Wizardry
 ---
 
 <div class="posts row">
 	{% for post in site.posts %}
 		<div class="post-preview">
-			<h2 class="post-preview__header">
-				<a href="{{ post.url }}" class="post-preview__title">
-					{{ post.title }}
-				</a>
+			<div class="post-preview__header">
+				<h2 class="post-preview__title">
+					<a href="{{ post.url }}" class="post-preview__title-link">
+						{{ post.title }}
+					</a>
+				</h2>
 				&raquo;
 				<span class="post-preview__date">
 					{{ post.date | date_to_string }}
 				</span>
-			</h2>
+			</div>
 			<div class="post-preview__excerpt">
 				{{ post.excerpt }}
 			</div>

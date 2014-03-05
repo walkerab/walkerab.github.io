@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: post
 title: About Me
 subtitle: While I'm not <em>exactly</em> a wizard, many have labelled me so.
-start_color: 50,160,50,0.5
-color_offset: 140
 ---
 
 Hi, my name is Andrew. I have been making websites and applications for 15 years. I've collected a broad set of programming (and some design) skills throughout that time. More so than I know what to do with.
