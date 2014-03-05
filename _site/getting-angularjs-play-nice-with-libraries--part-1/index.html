@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="/images/favicon.ico">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>
+			
+				Getting AngularJS to Play Nice with Other Libraries |
+			
+			Powerful Wizard
+		</title>
+		<meta name="viewport" content="width=device-width">
+
+		<!-- syntax highlighting CSS -->
+		<link rel="stylesheet" href="/css/syntax.css">
+
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="/css/main.css">
+	</head>
+	<body>
+		<div class="page__header">
+			<ul class="primary-nav">
+				<li class="primary-nav__item">
+					<a class="primary-nav__item-link" href="/">
+						Blog
+					</a>
+				</li>
+				<li class="primary-nav__item">
+					<a class="primary-nav__item-link" href="/about">
+						About
+					</a>
+				</li>
+			</ul>
+			<div class="logo">
+				<span class="logo__text">
+					<a class="logo__text-link fx--letter-flip" href="/">Powerful Wizard</a>
+				</span>
+				<div class="logo__sub-title">
+					Mumbling, Rants, &amp; Musings of a Programmer
+				</div>
+			</div>
+		</div>
+		<!-- <div class="background-strips"></div> -->
+		<div class="container">
+			<div class="center-piece">
+				<h1 class="page__title">
+					Getting AngularJS to Play Nice with Other Libraries
+				</h1>
+				<p class="page__sub-title">
+					
+				</p>
+				<div class="content">
+					
+<p class="meta">04 Mar 2014</p>
+
+
+<div class="post">
+<p>I love <a href="http://angularjs.org/">AngularJS</a>. It is one of my favorite <abbr title="JavaScript">JS</abbr> libraries to work with. Once you get past the sharp learning curve, it provides a set of sane design patterns for making serious web applications. If you have worked with a lot of <abbr title="JavaScript">JS</abbr> before, you know how valuable it can be to have a stringent platform - this goes here and that goes there. A lot of thinking has already been done for you!</p>
+
+<p>In this tutorial we are going to begin looking at one of the not-so-nice (but necessary) aspects of AngularJS and an approach to dealing with it.</p>
+
+<!--more-->
+
+<h2>The Problem - It&#39;s all in the callbacks</h2>
+
+<p>Angular touts itself as being friendly with other libraries.</p>
+
+<blockquote cite="http://angularjs.org">
+    <p>
+        AngularJS works great with other technologies.
+    </p>
+</blockquote>
+
+<p>And it does! It works great with other technologies but only in a limited sense -- it won&#39;t interfere with other JavaScript(s) running on the same page. </p>
+
+<p>This is in itself really great! It&#39;s a more than most <abbr title="JavaScript">JS</abbr> libraries and plugins can claim. But perhaps more accurately it should read:</p>
+
+<blockquote>
+<p>AngularJS works great with other technologies as long as they aren&#39;t trying to share information.</p>
+</blockquote>
+
+<p>Sadly this doesn&#39;t have the same ring to it.</p>
+
+<p>You see we start to run into problems when bringing other libraries into the context of AngularJS. These other libraries, unless they are crafted using AngularJS philosophies, will encounter issues in compatibility.</p>
+
+<p>AngularJS is designed around a dirty-checking model. What this means is that after the framework has deemed something to have happened it will scour through the model to see if there have been any changes. If changes are detected, the framework then updates the appropriate portions of the view (<abbr title="HyperText Markup Language">HTML</abbr>).</p>
+
+<blockquote cite="http://docs.angularjs.org/guide/scope">
+    <p>
+        When the browser calls into JavaScript the code executes outside the Angular execution context, which means that Angular is unaware of model modifications. To properly process model modifications the execution has to enter the Angular execution context using the <code><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply">$apply</a></code> method. Only model modifications which execute inside the <code>$apply</code> method will be properly accounted for by Angular. For example if a directive listens on DOM events, such as <code><a href="http://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a></code> it must evaluate the expression inside the <code>$apply</code> method.
+    </p>
+    <cite>
+        <a href="http://docs.angularjs.org/guide/scope">Angular Docs</a>
+    </cite>
+</blockquote>
+
+<p>In other words, if something happens to the model outside of the AngularJS execution context, AngularJS will not know that changes have occurred. In order to fix it, we must force the model changes occur inside of an AngularJS context.</p>
+
+<p>All callbacks managed through AngularJS are already tied in with the dirty-checking model. Anytime we <code>ng-click</code>, <code>$http</code>, <code>.resolve()</code> a promise, etc. the framework knows to check the model for changes because these components are connected to angular&#39;s scope model observation. On the other hand, callbacks passed to non-angular methods don&#39;t trigger model checking and as such won&#39;t have their changes reflected.
+To demonstrate the problem we will start by constructing a simple AngularJS application.</p>
+
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;angular-wrapper-demo&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Angular Wrapper Demo<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">&quot;myController&quot;</span><span class="nt">&gt;</span>
+        {{ username }}
+        <span class="nt">&lt;button</span> <span class="na">ng-click=</span><span class="s">&quot;logout()&quot;</span><span class="nt">&gt;</span>Logout<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;bower_components/angular/angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;angular-wrapper-demo&#39;</span><span class="p">,[]);</span>
+
+        <span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span><span class="kd">function</span> <span class="nx">myController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">;</span>
+
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">logout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+            <span class="p">};</span>
+        <span class="p">});</span>          
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+<p>Now this doesn&#39;t demonstrate the issue just yet. If you run the code you will see the username, &quot;Andrew&quot;, show up just fine. When you click the logout button, the username changes to blank. This is what we would expect.</p>
+
+<p>To see the problem, we need some JavaScript that executes outside of Angular&#39;s context. We are going to use a fake library that handles user login and logouts for us. Let&#39;s call it FameBook or FB for short.</p>
+
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;angular-wrapper-demo&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Angular Wrapper Demo<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">&quot;myController&quot;</span><span class="nt">&gt;</span>
+        {{ username }}
+        <span class="nt">&lt;button</span> <span class="na">ng-click=</span><span class="s">&quot;logout()&quot;</span><span class="nt">&gt;</span>Logout<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;bower_components/angular/angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Third party library for &quot;FameBook&quot; ;)</span>
+        <span class="kd">var</span> <span class="nx">FB</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">logout</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Simulate the effect of making an http request</span>
+                <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">callback</span><span class="p">();</span>
+                <span class="p">},</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+    <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Put our third-party library into a service</span>
+        <span class="c1">// so it can be injected into our controller</span>
+        <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;FB&#39;</span><span class="p">,[]).</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;FB&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="nx">FB</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Our app relies on the FB module</span>
+        <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;angular-wrapper-demo&#39;</span><span class="p">,[</span><span class="s1">&#39;FB&#39;</span><span class="p">]);</span>
+
+        <span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span><span class="kd">function</span> <span class="nx">myController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">FB</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">;</span>
+
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">logout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">FB</span><span class="p">.</span><span class="nx">logout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+                <span class="p">});</span>
+            <span class="p">};</span>
+        <span class="p">});</span>      
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+<p>It doesn&#39;t work now!</p>
+
+<h2>The Solution (sort of)</h2>
+
+<p>Anyone who is experienced with Angular will tell you it&#39;s easy to fix. All we need to do is place the callback into the AngularJS context. We do this using <code>$scope.$apply()</code>.</p>
+
+<p>Jim Hoskins does a great job of explaining the concept in his article, <a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">AngularJS and scope.$apply</a>.</p>
+
+<p>What we end up having to do is something like this in our controller:</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span><span class="kd">function</span> <span class="nx">myController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">FB</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">;</span>
+
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">logout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">logout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="c1">// &lt;--</span>
+                <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+            <span class="p">});</span> <span class="c1">// &lt;--</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>The arrows point to where we&#39;ve inserted code to wrap the scope modifications into an Angular context. The code now works as before.</p>
+
+<h2>A Better Solution</h2>
+
+<p>Now the above technique certainly gets the job done. It is however less than ideal. For one, it goes against <abbr title="Don't Repeat Yourself">DRY</abbr> principles.</p>
+
+<p>The next step then seems to wrap said functionality into a function. We create a higher order function, <code>wrapCallback</code>. It takes a callback function as input and returns a new callback function that will execute in Angular context.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span><span class="kd">function</span> <span class="nx">myController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">FB</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">wrapCallback</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">callback</span><span class="p">();</span>
+            <span class="p">});</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">logout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">FB</span><span class="p">.</span><span class="nx">logout</span><span class="p">(</span><span class="nx">wrapCallback</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="p">}));</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2>A Betterer Solution</h2>
+
+<p>Still we can do better. While our function does abstract away the <code>$scope.$apply</code> stuff, it will be useless outside of this controller. In order for it to work throughout our application, it will have to:</p>
+
+<ol>
+<li>Maintain a reference to the <code>$scope</code> of the current controller. The anonymous function being returned by <code>wrapCallback</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures">closure</a> for <code>$scope</code>.</li>
+<li>Be a <a href="http://docs.angularjs.org/guide/dev_guide.services">service</a> that we can inject into other controllers. </li>
+</ol>
+
+<h2>Before We Begin</h2>
+
+<p>If you are a beginner, this is probably not the tutorial you are looking for. I will be delving into some of the uglier parts of JavaScript and AngularJS and you will need strong understanding of JavaScript and its quirks in order to follow along.</p>
+
+<h2>Dealing with Callback Arguments</h2>
+
+<h2>This is This and That is That</h2>
+
+<h2>Not so Asynchronous After All?!?!</h2>
+
+</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="page__footer"></div>
+		<script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/fx--letter-flip.js"></script>
+	</body>
+</html>

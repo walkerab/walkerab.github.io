@@ -1,0 +1,23 @@
+.page__title {
+	color: #909090;
+	font-variant: small-caps;
+	text-transform: uppercase;
+	font-size: 4em;
+	text-align: center;
+	.fx--inset-text(#666);
+	@media (max-width: @screen-size-small) {
+		font-size: 3em;
+	}
+}
+
+.page__sub-title {
+	font-size: 0.6em;
+}
+
+.page__header,
+.page__footer {
+	padding: @gutter-size;
+	background-color: rgba(0,0,0,0.5);
+	color: @color-2;
+	min-height: (2 * @computed-line-height);
+}

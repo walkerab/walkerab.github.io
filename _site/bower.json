@@ -1,0 +1,18 @@
+{
+  "name": "powerfulwizard.net",
+  "version": "0.0.0",
+  "homepage": "https://github.com/walkerab/walkerab.github.io",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "git://github.com/jquery/jquery.git#1.10.2",
+    "less.js": "git://github.com/less/less.js.git"
+  }
+}
