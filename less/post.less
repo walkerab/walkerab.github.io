@@ -96,18 +96,46 @@
 
 	.highlight {
 		padding: @gutter-size;
-		overflow-x: auto;
 		.fx--inner-shadow;
+		overflow-x: auto;
+ 
+		pre {
+	 		// float it to force it to resize
+	 		// to fit it's contents.
+	 		// This is for .hl-line.
+			float: left;
+			min-width: 100%;
+		}
+
+
+		code {
+			display: block;
+		}
 	}
 
 
-	code:not(.highlight code) {
+	code:not(.javascript):not(.html):not(.php):not(.css) {
 		display: inline-block;
 		background-color: rgba(0,0,0,0.1);
 		padding: 0 0.3em;
 		border-radius: 0.3em;
 		color: @color-6;
 	}
+
+	abbr {
+
+	}
+}
+
+.hl-line {
+	display: block;
+	// width: 100%;
+	margin: 0 -@gutter-size;
+	// Add in padding so that text indentation stays correct
+	padding-left: @gutter-size; 
+	// semi-transparent so we can still
+	// see inset shadow on .highlight
+	background-color: rgba(65, 236, 255, 0.14);
 }
 
 .post-preview {
